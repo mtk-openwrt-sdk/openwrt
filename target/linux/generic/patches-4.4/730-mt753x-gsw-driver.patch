@@ -1,0 +1,18 @@
+--- a/drivers/net/phy/Kconfig
++++ b/drivers/net/phy/Kconfig
+@@ -298,6 +298,8 @@
+ 
+ endif # RTL8366_SMI
+ 
++source "drivers/net/phy/mtk/mt753x/Kconfig"
++
+ endif # PHYLIB
+ 
+ config MICREL_KS8995MA
+--- a/drivers/net/phy/Makefile
++++ b/drivers/net/phy/Makefile
+@@ -48,3 +48,4 @@
+ obj-$(CONFIG_MDIO_BCM_UNIMAC)	+= mdio-bcm-unimac.o
+ obj-$(CONFIG_MICROCHIP_PHY)	+= microchip.o
+ obj-$(CONFIG_MDIO_BCM_IPROC)	+= mdio-bcm-iproc.o
++obj-$(CONFIG_MT753X_GSW)      += mtk/mt753x/

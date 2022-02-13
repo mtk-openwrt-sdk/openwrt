@@ -277,29 +277,29 @@
 
 		i2c_pins: i2c {
 			i2c {
-				ralink,group = "i2c";
-				ralink,function = "i2c";
+				mtk,group = "i2c";
+				mtk,function = "i2c";
 			};
 		};
 
 		spi_pins: spi {
 			spi {
-				ralink,group = "spi";
-				ralink,function = "spi";
+				mtk,group = "spi";
+				mtk,function = "spi";
 			};
 		};
 
 		spi_cs1: spi1 {
 			spi1 {
-				ralink,group = "spi_cs1";
-				ralink,function = "spi_cs1";
+				mtk,group = "spi_cs1";
+				mtk,function = "spi_cs1";
 			};
 		};
 
 		uartlite_pins: uartlite {
 			uart {
-				ralink,group = "uartlite";
-				ralink,function = "uartlite";
+				mtk,group = "uartlite";
+				mtk,function = "uartlite";
 			};
 		};
 	};

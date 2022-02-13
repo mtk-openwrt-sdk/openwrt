@@ -95,16 +95,15 @@ define ModuleAutoLoad
 	$(SH_FUNC) \
 	export modules=; \
 	probe_module() { \
-		local mods="$$$$$$$$1"; \
-		local boot="$$$$$$$$2"; \
-		local mod; \
+		mods="$$$$$$$$1"; \
+		boot="$$$$$$$$2"; \
 		shift 2; \
-		for mod in $$$$$$$$mods; do \
+		for mod in $(sort $$$$$$$$mods); do \
 			mkdir -p $(2)/etc/modules.d; \
 			echo "$$$$$$$$mod" >> $(2)/etc/modules.d/$(1); \
 		done; \
 		if [ -e $(2)/etc/modules.d/$(1) ]; then \
-			if [ "$$$$$$$$boot" = "1" -a ! -e $(2)/etc/modules-boot.d/$(1) ]; then \
+			if [ "$$$$$$$$boot" = "1" ]; then \
 				mkdir -p $(2)/etc/modules-boot.d; \
 				ln -s ../modules.d/$(1) $(2)/etc/modules-boot.d/; \
 			fi; \
@@ -112,17 +111,16 @@ define ModuleAutoLoad
 		fi; \
 	}; \
 	add_module() { \
-		local priority="$$$$$$$$1"; \
-		local mods="$$$$$$$$2"; \
-		local boot="$$$$$$$$3"; \
-		local mod; \
+		priority="$$$$$$$$1"; \
+		mods="$$$$$$$$2"; \
+		boot="$$$$$$$$3"; \
 		shift 3; \
-		for mod in $$$$$$$$mods; do \
+		for mod in $(sort $$$$$$$$mods); do \
 			mkdir -p $(2)/etc/modules.d; \
 			echo "$$$$$$$$mod" >> $(2)/etc/modules.d/$$$$$$$$priority-$(1); \
 		done; \
 		if [ -e $(2)/etc/modules.d/$$$$$$$$priority-$(1) ]; then \
-			if [ "$$$$$$$$boot" = "1" -a ! -e $(2)/etc/modules-boot.d/$$$$$$$$priority-$(1) ]; then \
+			if [ "$$$$$$$$boot" = "1" ]; then \
 				mkdir -p $(2)/etc/modules-boot.d; \
 				ln -s ../modules.d/$$$$$$$$priority-$(1) $(2)/etc/modules-boot.d/; \
 			fi; \
@@ -131,7 +129,6 @@ define ModuleAutoLoad
 	}; \
 	$(3) \
 	if [ -n "$$$$$$$$modules" ]; then \
-		modules="$$$$$$$$(echo "$$$$$$$$modules" | tr ' ' '\n' | sort | uniq | paste -s -d' ')"; \
 		mkdir -p $(2)/etc/modules.d; \
 		mkdir -p $(2)/CONTROL; \
 		echo "#!/bin/sh" > $(2)/CONTROL/postinst-pkg; \

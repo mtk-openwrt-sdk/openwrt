@@ -92,7 +92,7 @@ preinit_config_board() {
 
 	pi_ifname=$ifname
 
-	preinit_ip_config $pi_ifname
+#	preinit_ip_config $pi_ifname
 }
 
 preinit_ip() {

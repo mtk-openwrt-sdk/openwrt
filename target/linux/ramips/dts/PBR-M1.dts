@@ -170,8 +170,8 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "wdt", "rgmii2", "jtag", "mdio";
-			ralink,function = "gpio";
+			mtk,group = "wdt", "rgmii2", "jtag", "mdio";
+			mtk,function = "gpio";
 		};
 	};
 };

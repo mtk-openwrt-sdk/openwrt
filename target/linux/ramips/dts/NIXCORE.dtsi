@@ -126,8 +126,8 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "jtag", "led", "spi_cs1";
-			ralink,function = "gpio";
+			mtk,group = "jtag", "led", "spi_cs1";
+			mtk,function = "gpio";
 		};
 	};
 };

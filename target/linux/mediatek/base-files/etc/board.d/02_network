@@ -10,9 +10,15 @@ mediatek_setup_interfaces()
 	local board="$1"
 
 	case $board in
-	eMMC | \
-	NAND | \
-	mt7623_evb)
+	mt7623)
+		ucidef_set_interface_lan "lan0 lan1 lan2 lan3"
+		ucidef_set_interface_wan wan
+		;;
+	mt7623-gphy)
+		ucidef_set_interface_lan "lan0 lan1 lan2 lan3"
+		ucidef_set_interface_wan eth1
+		;;
+	*)
 		ucidef_set_interfaces_lan_wan "eth0" "eth1"
 		ucidef_add_switch "switch0" \
 			"0:lan" "1:lan" "2:lan" "3:lan" "4:wan" "6@eth0" "5@eth1"

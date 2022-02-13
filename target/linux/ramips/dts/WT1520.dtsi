@@ -22,8 +22,8 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "jtag";
-			ralink,function = "gpio";
+			mtk,group = "jtag";
+			mtk,function = "gpio";
 		};
 	};
 };

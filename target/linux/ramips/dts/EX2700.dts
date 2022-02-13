@@ -138,8 +138,8 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		default {
-			ralink,group = "i2c", "uartf", "spi refclk";
-			ralink,function = "gpio";
+			mtk,group = "i2c", "uartf", "spi refclk";
+			mtk,function = "gpio";
 		};
 	};
 };

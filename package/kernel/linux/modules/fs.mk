@@ -186,8 +186,9 @@ define KernelPackage/fs-ext4
   FILES:= \
 	$(LINUX_DIR)/fs/ext4/ext4.ko \
 	$(LINUX_DIR)/fs/jbd2/jbd2.ko \
-	$(LINUX_DIR)/fs/mbcache.ko
-  AUTOLOAD:=$(call AutoLoad,30,mbcache jbd2 ext4,1)
+	$(LINUX_DIR)/fs/mbcache.ko \
+	$(LINUX_DIR)/fs/mbcache2.ko
+  AUTOLOAD:=$(call AutoLoad,30,mbcache2 mbcache jbd2 ext4,1)
 endef
 
 define KernelPackage/fs-ext4/description

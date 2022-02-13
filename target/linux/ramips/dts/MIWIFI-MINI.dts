@@ -142,13 +142,13 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "i2c", "rgmii1";
-			ralink,function = "gpio";
+			mtk,group = "i2c", "rgmii1";
+			mtk,function = "gpio";
 		};
 
 		pa {
-			ralink,group = "pa";
-			ralink,function = "pa";
+			mtk,group = "pa";
+			mtk,function = "pa";
 		};
 	};
 };

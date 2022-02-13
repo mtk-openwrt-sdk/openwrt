@@ -127,8 +127,15 @@ start_service() {
 	procd_close_data
 
 	procd_close_instance
+
+	switch igmpsnoop on
 }
 
 service_started() {
 	procd_set_config_changed firewall
 }
+
+stop_service() {
+	switch igmpsnoop off
+}
+

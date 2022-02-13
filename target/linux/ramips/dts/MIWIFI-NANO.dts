@@ -52,8 +52,8 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "refclk", "wled_an", "gpio";
-			ralink,function = "gpio";
+			mtk,group = "refclk", "wled_an", "gpio";
+			mtk,function = "gpio";
 		};
 	};
 };

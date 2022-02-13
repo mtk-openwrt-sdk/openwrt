@@ -118,8 +118,8 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "uartf", "nd_sd", "rgmii2", "wled";
-			ralink,function = "gpio";
+			mtk,group = "uartf", "nd_sd", "rgmii2", "wled";
+			mtk,function = "gpio";
 		};
 	};
 };

@@ -26,20 +26,18 @@ endef
 
 $(eval $(call KernelPackage,pwm-mediatek))
 
-define KernelPackage/sdhci-mt7620
+define KernelPackage/sdhci-mt7621
   SUBMENU:=Other modules
-  TITLE:=MT7620 SDCI
-  DEPENDS:=@(TARGET_ramips_mt7620||TARGET_ramips_mt7628||TARGET_ramips_mt7621||TARGET_ramips_mt7688) +kmod-sdhci
+  TITLE:=MT7621 SD Host Controller driver
+  DEPENDS:=@(TARGET_ramips_mt7621) +kmod-mmc
   KCONFIG:= \
-	CONFIG_MTK_MMC \
-	CONFIG_MTK_AEE_KDUMP=n \
-	CONFIG_MTK_MMC_CD_POLL=n
+	CONFIG_MMC_MT7621
   FILES:= \
-	$(LINUX_DIR)/drivers/mmc/host/mtk-mmc/mtk_sd.ko
-  AUTOLOAD:=$(call AutoProbe,mtk_sd,1)
+	$(LINUX_DIR)/drivers/mmc/host/mt7621-sd/mt7621-sd.ko
+  AUTOLOAD:=$(call AutoProbe,mt7621-sd,1)
 endef
 
-$(eval $(call KernelPackage,sdhci-mt7620))
+$(eval $(call KernelPackage,sdhci-mt7621))
 
 I2C_RALINK_MODULES:= \
   CONFIG_I2C_RALINK:drivers/i2c/busses/i2c-ralink
@@ -81,11 +79,11 @@ define KernelPackage/dma-ralink
   KCONFIG:= \
 	CONFIG_DMADEVICES=y \
 	CONFIG_DW_DMAC_PCI=n \
-	CONFIG_DMA_RALINK
+	CONFIG_DMA_MT7620
   FILES:= \
 	$(LINUX_DIR)/drivers/dma/virt-dma.ko \
-	$(LINUX_DIR)/drivers/dma/ralink-gdma.ko
-  AUTOLOAD:=$(call AutoLoad,52,ralink-gdma)
+	$(LINUX_DIR)/drivers/dma/mt7620-gdma.ko
+  AUTOLOAD:=$(call AutoLoad,52,mt7620-gdma)
 endef
 
 define KernelPackage/dma-ralink/description
@@ -114,23 +112,52 @@ endef
 
 $(eval $(call KernelPackage,hsdma-mtk))
 
-define KernelPackage/sound-mt7620
-  TITLE:=MT7620 PCM/I2S Alsa Driver
+define KernelPackage/sound-mt7621
+  TITLE:=MT7621 I2S Alsa Driver
   DEPENDS:=@TARGET_ramips +kmod-sound-soc-core +kmod-regmap +kmod-dma-ralink @!TARGET_ramips_rt288x
   KCONFIG:= \
-	CONFIG_SND_RALINK_SOC_I2S \
+	CONFIG_SND_SOC_MT7621 \
 	CONFIG_SND_SIMPLE_CARD \
-	CONFIG_SND_SOC_WM8960
+	CONFIG_SND_SOC_MT7621_WM8960
   FILES:= \
-	$(LINUX_DIR)/sound/soc/ralink/snd-soc-ralink-i2s.ko \
+	$(LINUX_DIR)/sound/soc/mediatek/mt7621/snd-soc-ralink-i2s.ko \
 	$(LINUX_DIR)/sound/soc/generic/snd-soc-simple-card.ko \
 	$(LINUX_DIR)/sound/soc/codecs/snd-soc-wm8960.ko
   AUTOLOAD:=$(call AutoLoad,90,snd-soc-wm8960 snd-soc-ralink-i2s snd-soc-simple-card)
   $(call AddDepends/sound)
 endef
 
-define KernelPackage/sound-mt7620/description
+define KernelPackage/sound-mt7621/description
  Alsa modules for ralink i2s controller.
 endef
 
-$(eval $(call KernelPackage,sound-mt7620))
+$(eval $(call KernelPackage,sound-mt7621))
+
+define KernelPackage/hw_nat
+  CATEGORY:=MTK Properties
+  SUBMENU:=Drivers
+  TITLE:=MTK Hardware NAT
+  KCONFIG:=CONFIG_RA_HW_NAT
+  DEPENDS:=@!TARGET_ramips_MT7628
+  FILES:=$(LINUX_DIR)/net/nat/hw_nat/hw_nat.ko
+endef
+define KernelPackage/hw_nat/install
+	$(INSTALL_DIR) $(1)/lib/modules/ralink/
+	mv $(1)/lib/modules/$(LINUX_VERSION)/hw_nat.ko $(1)/lib/modules/ralink/
+endef
+$(eval $(call KernelPackage,hw_nat))
+
+define KernelPackage/mediatek_hnat
+  SUBMENU:=Network Devices
+  TITLE:=Mediatek HNAT module
+  DEPENDS:=@TARGET_ramips +kmod-nf-conntrack
+  KCONFIG:= CONFIG_NET_MEDIATEK_HNAT=y
+  FILES:= \
+        $(LINUX_DIR)/drivers/net/ethernet/mediatek/mtk_hnat/mtkhnat.ko
+endef
+
+define KernelPackage/mediatek_hnat/description
+  Kernel modules for MediaTek HW NAT offloading
+endef
+
+$(eval $(call KernelPackage,mediatek_hnat))

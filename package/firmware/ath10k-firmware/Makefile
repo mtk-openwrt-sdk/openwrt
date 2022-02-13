@@ -63,6 +63,7 @@ $(eval $(call Download,ath10k-qca9887-board))
 
 define Package/ath10k-firmware-qca988x
 $(Package/ath10k-firmware-default)
+  DEFAULT:=PACKAGE_kmod-ath10k
   TITLE:=ath10k firmware for QCA988x devices
   SECTION:=firmware
   CATEGORY:=Firmware

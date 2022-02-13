@@ -24,7 +24,13 @@ proto_dslite_setup() {
 		return
 	}
 
-	( proto_add_host_dependency "$cfg" "::" "$tunlink" )
+#	( proto_add_host_dependency "$cfg" "::" "$tunlink" )
+	json_init
+	json_add_int action 6
+	json_add_string host "::"
+	[ -n "$tunlink" ] && json_add_string ifname "$tunlink"
+	json_add_string "interface" "$cfg"
+	ubus -S call network.interface notify_proto \'"$(json_dump)"\'
 
 	remoteip6=$(resolveip -6 "$peeraddr")
 	if [ -z "$remoteip6" ]; then

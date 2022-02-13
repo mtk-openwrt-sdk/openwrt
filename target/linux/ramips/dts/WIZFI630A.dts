@@ -144,22 +144,22 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "i2c", "jtag" ;
-			ralink,function = "gpio";
+			mtk,group = "i2c", "jtag" ;
+			mtk,function = "gpio";
 		};
 	};
 
 	uartf_gpio_pins: uartf_gpio {
 		uartf_gpio {
-			ralink,group = "uartf";
-			ralink,function = "uartf";
+			mtk,group = "uartf";
+			mtk,function = "uartf";
 		};
 	};
 
 	uartlite_pins: uartlite {
 		uart {
-			ralink,group = "uartlite";
-			ralink,function = "uartlite";
+			mtk,group = "uartlite";
+			mtk,function = "uartlite";
 		};
 	};
 };

@@ -62,28 +62,28 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "gpio";
-			ralink,function = "gpio";
+			mtk,group = "gpio";
+			mtk,function = "gpio";
 		};
 
 		i2c {
-			ralink,group = "i2c";
-			ralink,function = "gpio";
+			mtk,group = "i2c";
+			mtk,function = "gpio";
 		};
 
 		i2s {
-			ralink,group = "i2s";
-			ralink,function = "gpio";
+			mtk,group = "i2s";
+			mtk,function = "gpio";
 		};
 
 		spis {
-			ralink,group = "spis";
-			ralink,function = "gpio";
+			mtk,group = "spis";
+			mtk,function = "gpio";
 		};
 
 		wdt {
-			ralink,group = "wdt";
-			ralink,function = "gpio";
+			mtk,group = "wdt";
+			mtk,function = "gpio";
 		};
 	};
 };

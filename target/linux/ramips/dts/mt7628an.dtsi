@@ -279,71 +279,71 @@
 
 		spi_pins: spi {
 			spi {
-				ralink,group = "spi";
-				ralink,function = "spi";
+				mtk,group = "spi";
+				mtk,function = "spi";
 			};
 		};
 
 		spi_cs1_pins: spi_cs1 {
 			spi_cs1 {
-				ralink,group = "spi cs1";
-				ralink,function = "spi cs1";
+				mtk,group = "spi cs1";
+				mtk,function = "spi cs1";
 			};
 		};
 
 		i2c_pins: i2c {
 			i2c {
-				ralink,group = "i2c";
-				ralink,function = "i2c";
+				mtk,group = "i2c";
+				mtk,function = "i2c";
 			};
 		};
 
 		uart0_pins: uartlite {
 			uartlite {
-				ralink,group = "uart0";
-				ralink,function = "uart0";
+				mtk,group = "uart0";
+				mtk,function = "uart0";
 			};
 		};
 
 		uart1_pins: uart1 {
 			uart1 {
-				ralink,group = "uart1";
-				ralink,function = "uart1";
+				mtk,group = "uart1";
+				mtk,function = "uart1";
 			};
 		};
 
 		uart2_pins: uart2 {
 			uart2 {
-				ralink,group = "uart2";
-				ralink,function = "uart2";
+				mtk,group = "uart2";
+				mtk,function = "uart2";
 			};
 		};
 
 		sdxc_pins: sdxc {
 			sdxc {
-				ralink,group = "sdmode";
-				ralink,function = "sdxc";
+				mtk,group = "sdmode";
+				mtk,function = "sdxc";
 			};
 		};
 
 		pwm0_pins: pwm0 {
 			pwm0 {
-				ralink,group = "pwm0";
-				ralink,function = "pwm0";
+				mtk,group = "pwm0";
+				mtk,function = "pwm0";
 			};
 		};
 
 		pwm1_pins: pwm1 {
 			pwm1 {
-				ralink,group = "pwm1";
-				ralink,function = "pwm1";
+				mtk,group = "pwm1";
+				mtk,function = "pwm1";
 			};
 		};
 
 		pcm_i2s_pins: i2s {
 			i2s {
-				ralink,group = "i2s";
-				ralink,function = "pcm";
+				mtk,group = "i2s";
+				mtk,function = "pcm";
 			};
 		};
 	};

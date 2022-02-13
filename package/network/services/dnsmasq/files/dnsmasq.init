@@ -116,12 +116,12 @@ append_ipset() {
 }
 
 append_interface() {
-	network_get_device ifname "$1" || return
+	network_get_device ifname "$1" || ifname="$1"
 	xappend "--interface=$ifname"
 }
 
 append_notinterface() {
-	network_get_device ifname "$1" || return
+	network_get_device ifname "$1" || ifname="$1"
 	xappend "--except-interface=$ifname"
 }
 
@@ -533,7 +533,7 @@ dhcp_relay_add() {
 
 dnsmasq_start()
 {
-	local cfg="$1" disabled resolvfile
+	local cfg="$1" disabled
 
 	config_get_bool disabled "$cfg" disabled 0
 	[ "$disabled" -gt 0 ] && return 0
@@ -559,9 +559,14 @@ dnsmasq_start()
 	echo "# auto-generated config file from /etc/config/dhcp" > $CONFIGFILE_TMP
 	echo "# auto-generated config file from /etc/config/dhcp" > $HOSTFILE
 
+	local dnsmasqconffile="/etc/dnsmasq.${cfg}.conf"
+	if [ ! -r "$dnsmasqconffile" ]; then
+		dnsmasqconffile=/etc/dnsmasq.conf
+	fi
+
 	# if we did this last, we could override auto-generated config
-	[ -f /etc/dnsmasq.conf ] && {
-		xappend "--conf-file=/etc/dnsmasq.conf"
+	[ -f "${dnsmasqconffile}" ] && {
+		xappend "--conf-file=${dnsmasqconffile}"
 	}
 
 	$PROG --version | grep -osqE "^Compile time options:.* DHCPv6( |$)" && DHCPv6CAPABLE=1 || DHCPv6CAPABLE=0
@@ -613,6 +618,7 @@ dnsmasq_start()
 	config_list_foreach "$cfg" "addnhosts" append_addnhosts
 	config_list_foreach "$cfg" "bogusnxdomain" append_bogusnxdomain
 	append_parm "$cfg" "leasefile" "--dhcp-leasefile" "/tmp/dhcp.leases"
+	append_parm "$cfg" "resolvfile" "--resolv-file" "/tmp/resolv.conf.auto"
 	append_parm "$cfg" "serversfile" "--servers-file"
 	append_parm "$cfg" "tftp_root" "--tftp-root"
 	append_parm "$cfg" "dhcp_boot" "--dhcp-boot"
@@ -627,6 +633,7 @@ dnsmasq_start()
 	config_get_bool readethers "$cfg" readethers
 	[ "$readethers" = "1" -a \! -e "/etc/ethers" ] && touch /etc/ethers
 
+	config_get resolvfile $cfg resolvfile
 	config_get dhcpscript $cfg dhcpscript
 
 	config_get leasefile $cfg leasefile "/tmp/dhcp.leases"
@@ -639,8 +646,6 @@ dnsmasq_start()
 		# So jail doesn't complain if file missing
 		[ -n "$resolvfile" -a \! -e "$resolvfile" ] && touch "$resolvfile"
 	fi
-
-	[ -n "$resolvfile" ] && xappend "--resolv-file=$resolvfile"
 
 	config_get hostsfile "$cfg" dhcphostsfile
 	[ -e "$hostsfile" ] && xappend "--dhcp-hostsfile=$hostsfile"
@@ -774,11 +779,6 @@ dnsmasq_start()
 	procd_set_param command $PROG -C $CONFIGFILE -k -x /var/run/dnsmasq/dnsmasq."${cfg}".pid
 	procd_set_param file $CONFIGFILE
 	procd_set_param respawn
-
-	local dnsmasqconffile="/etc/dnsmasq.${cfg}.conf"
-	if [ ! -r "$dnsmasqconffile" ]; then
-		dnsmasqconffile=/etc/dnsmasq.conf
-	fi
 
 	procd_add_jail dnsmasq ubus log
 	procd_add_jail_mount $CONFIGFILE $TRUSTANCHORSFILE $HOSTFILE /etc/passwd /etc/group /etc/TZ /dev/null /dev/urandom $dnsmasqconffile $dnsmasqconfdir $resolvfile $dhcpscript /etc/hosts /etc/ethers $EXTRA_MOUNT

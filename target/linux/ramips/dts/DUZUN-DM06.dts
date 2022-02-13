@@ -58,22 +58,22 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "wdt", "uart1";
-			ralink,function = "gpio";
+			mtk,group = "wdt", "uart1";
+			mtk,function = "gpio";
 		};
 	};
 
 	i2s_pins: i2s {
 		i2s {
-			ralink,group = "i2s";
-			ralink,function = "i2s";
+			mtk,group = "i2s";
+			mtk,function = "i2s";
 		};
 	};
 
 	wm8960_mclk_pins: wm8960_mclk {
 		wm8960_mclk {
-			ralink,group = "refclk";
-			ralink,function = "reclk";
+			mtk,group = "refclk";
+			mtk,function = "reclk";
 		};
 	};
 };

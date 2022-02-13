@@ -571,6 +571,14 @@ static int gpio_keys_probe(struct platform_device *pdev)
 			continue;
 		}
 
+		if (button->debounce_interval) {
+
+			ret = gpio_set_debounce(button->gpio,
+					button->debounce_interval);
+			if (ret)
+				dev_err(&pdev->dev, "failed to set debounce_interval for gpio:%d\n", button->gpio);
+		}
+
 		ret = devm_request_threaded_irq(&pdev->dev, button->irq, NULL, button_handle_irq,
 						IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
 						dev_name(&pdev->dev), bdata);

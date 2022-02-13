@@ -111,8 +111,8 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "spi", "jtag", "uartf";
-			ralink,function = "gpio";
+			mtk,group = "spi", "jtag", "uartf";
+			mtk,function = "gpio";
 		};
 	};
 };
@@ -150,8 +150,8 @@
 
 	pci_pins: pci {
 		pci {
-			ralink,group = "pci";
-			ralink,function = "pci-fnc";
+			mtk,group = "pci";
+			mtk,function = "pci-fnc";
 		};
 	};
 

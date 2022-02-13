@@ -26,7 +26,7 @@ DEVICE_VARS += DTS IMAGE_SIZE
 
 loadaddr-y := 0x80000000
 loadaddr-$(CONFIG_TARGET_ramips_rt288x) := 0x88000000
-loadaddr-$(CONFIG_TARGET_ramips_mt7621) := 0x80001000
+loadaddr-$(CONFIG_TARGET_ramips_mt7621) := 0x81001000
 
 KERNEL_LOADADDR := $(loadaddr-y)
 

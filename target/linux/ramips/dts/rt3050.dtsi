@@ -241,29 +241,29 @@
 
 		state_default: pinctrl0 {
 			sdram {
-				ralink,group = "sdram";
-				ralink,function = "sdram";
+				mtk,group = "sdram";
+				mtk,function = "sdram";
 			};
 		};
 
 		i2c_pins: i2c {
 			i2c {
-				ralink,group = "i2c";
-				ralink,function = "i2c";
+				mtk,group = "i2c";
+				mtk,function = "i2c";
 			};
 		};
 
 		spi_pins: spi {
 			spi {
-				ralink,group = "spi";
-				ralink,function = "spi";
+				mtk,group = "spi";
+				mtk,function = "spi";
 			};
 		};
 
 		uartlite_pins: uartlite {
 			uart {
-				ralink,group = "uartlite";
-				ralink,function = "uartlite";
+				mtk,group = "uartlite";
+				mtk,function = "uartlite";
 			};
 		};
 	};

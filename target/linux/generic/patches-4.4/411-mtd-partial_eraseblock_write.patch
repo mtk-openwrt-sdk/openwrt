@@ -1,5 +1,7 @@
---- a/drivers/mtd/mtdpart.c
-+++ b/drivers/mtd/mtdpart.c
+Index: linux-4.4.43/drivers/mtd/mtdpart.c
+===================================================================
+--- linux-4.4.43.orig/drivers/mtd/mtdpart.c
++++ linux-4.4.43/drivers/mtd/mtdpart.c
 @@ -37,6 +37,8 @@
  #include "mtdcore.h"
  #include "mtdsplit/mtdsplit.h"
@@ -9,8 +11,8 @@
  /* Our partition linked list */
  static LIST_HEAD(mtd_partitions);
  static DEFINE_MUTEX(mtd_partitions_mutex);
-@@ -236,13 +238,61 @@ static int part_erase(struct mtd_info *m
- 	struct mtd_part *part = PART(mtd);
+@@ -236,12 +238,59 @@ static int part_erase(struct mtd_info *m
+ 	struct mtd_part *part = mtd_to_part(mtd);
  	int ret;
  
 +
@@ -67,14 +69,12 @@
 +		if (mtd->flags & MTD_ERASE_PARTIAL)
 +			kfree(instr->erase_buf);
  	}
-+
  	return ret;
  }
- 
-@@ -250,7 +300,25 @@ void mtd_erase_callback(struct erase_inf
+@@ -250,7 +299,25 @@ void mtd_erase_callback(struct erase_inf
  {
  	if (instr->mtd->_erase == part_erase) {
- 		struct mtd_part *part = PART(instr->mtd);
+ 		struct mtd_part *part = mtd_to_part(instr->mtd);
 +		size_t wrlen = 0;
  
 +		if (instr->mtd->flags & MTD_ERASE_PARTIAL) {
@@ -97,7 +97,7 @@
  		if (instr->fail_addr != MTD_FAIL_ADDR_UNKNOWN)
  			instr->fail_addr -= part->offset;
  		instr->addr -= part->offset;
-@@ -523,17 +591,20 @@ static struct mtd_part *allocate_partiti
+@@ -544,17 +611,20 @@ static struct mtd_part *allocate_partiti
  	if ((slave->mtd.flags & MTD_WRITEABLE) &&
  	    mtd_mod_by_eb(slave->offset, &slave->mtd)) {
  		/* Doesn't start on a boundary of major erase size */
@@ -126,17 +126,19 @@
 +			slave->mtd.erasesize = slave->mtd.size;
  	}
  
- 	slave->mtd.ecclayout = master->ecclayout;
---- a/include/linux/mtd/mtd.h
-+++ b/include/linux/mtd/mtd.h
+ 	mtd_set_ooblayout(&slave->mtd, &part_ooblayout_ops);
+Index: linux-4.4.43/include/linux/mtd/mtd.h
+===================================================================
+--- linux-4.4.43.orig/include/linux/mtd/mtd.h
++++ linux-4.4.43/include/linux/mtd/mtd.h
 @@ -55,6 +55,10 @@ struct erase_info {
  	u_long priv;
  	u_char state;
  	struct erase_info *next;
-+
 +	u8 *erase_buf;
 +	u32 erase_buf_ofs;
 +	bool partial_start;
++
  };
  
  struct mtd_erase_region_info {

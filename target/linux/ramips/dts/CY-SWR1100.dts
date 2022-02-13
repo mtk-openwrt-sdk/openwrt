@@ -98,8 +98,8 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "i2c", "spi";
-			ralink,function = "gpio";
+			mtk,group = "i2c", "spi";
+			mtk,function = "gpio";
 		};
 	};
 };
@@ -118,8 +118,8 @@
 
 	pci_pins: pci {
 		pci {
-			ralink,group = "pci";
-			ralink,function = "pci-fnc";
+			mtk,group = "pci";
+			mtk,function = "pci-fnc";
 		};
 	};
 

@@ -11,13 +11,28 @@ mediatek_board_detect() {
 
 	case "$machine" in
 	"MediaTek MT7623 evaluation board")
-		name="mt7623_evb"
+		name="mt7623"
 		;;
-	"MediaTek MT7623 eMMC evaluation board")
-		name="eMMC"
+	"MediaTek MT7623a eMMC evaluation board")
+		name="mt7623"
 		;;
-	"MediaTek MT7623 NAND evaluation board")
-		name="NAND"
+	"MediaTek MT7623a NAND evaluation board")
+		name="mt7623"
+		;;
+	"MediaTek MT7623n eMMC+Ephy board")
+		name="mt7623-gphy"
+		;;
+	"MediaTek MT7622 AC2600rfb1 board")
+		name="mt7622"
+		;;
+	"MediaTek MT7622 AC4300rfb1 board")
+		name="mt7622"
+		;;
+	"MediaTek MT7622 AX3600 board")
+		name="mt7622-ax"
+		;;
+	"MediaTek MT7629 RFB1 board")
+		name="mt7629"
 		;;
 	esac
 

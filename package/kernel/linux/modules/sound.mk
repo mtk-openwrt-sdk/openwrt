@@ -11,32 +11,40 @@ SOUND_MENU:=Sound Support
 SOUNDCORE_LOAD ?= \
 	soundcore \
 	snd \
-	snd-hwdep \
 	snd-seq-device \
 	snd-rawmidi \
 	snd-timer \
 	snd-pcm \
 	snd-mixer-oss \
-	snd-pcm-oss \
-	snd-compress
+	snd-pcm-oss
 
 SOUNDCORE_FILES ?= \
 	$(LINUX_DIR)/sound/soundcore.ko \
 	$(LINUX_DIR)/sound/core/snd.ko \
-	$(LINUX_DIR)/sound/core/snd-hwdep.ko \
 	$(LINUX_DIR)/sound/core/seq/snd-seq-device.ko \
 	$(LINUX_DIR)/sound/core/snd-rawmidi.ko \
 	$(LINUX_DIR)/sound/core/snd-timer.ko \
 	$(LINUX_DIR)/sound/core/snd-pcm.ko \
 	$(LINUX_DIR)/sound/core/oss/snd-mixer-oss.ko \
-	$(LINUX_DIR)/sound/core/oss/snd-pcm-oss.ko \
-	$(LINUX_DIR)/sound/core/snd-compress.ko
+	$(LINUX_DIR)/sound/core/oss/snd-pcm-oss.ko
 
 SOUNDCORE_LOAD += \
 	$(if $(CONFIG_SND_DMAENGINE_PCM),snd-pcm-dmaengine)
 
 SOUNDCORE_FILES += \
 	$(if $(CONFIG_SND_DMAENGINE_PCM),$(LINUX_DIR)/sound/core/snd-pcm-dmaengine.ko)
+
+SOUNDCORE_LOAD += \
+	$(if $(CONFIG_SND_HWDEP),snd-hwdep)
+
+SOUNDCORE_FILES += \
+	$(if $(CONFIG_SND_HWDEP),$(LINUX_DIR)/sound/core/snd-hwdep.ko)
+
+SOUNDCORE_LOAD += \
+	$(if $(CONFIG_SND_COMPRESS_OFFLOAD),snd-compress)
+
+SOUNDCORE_FILES += \
+	$(if $(CONFIG_SND_COMPRESS_OFFLOAD),$(LINUX_DIR)/sound/core/snd-compress.ko)
 
 define KernelPackage/sound-core
   SUBMENU:=$(SOUND_MENU)
@@ -67,7 +75,7 @@ define KernelPackage/sound-core/uml
   FILES:= \
 	$(LINUX_DIR)/sound/soundcore.ko \
 	$(LINUX_DIR)/arch/um/drivers/hostaudio.ko
-  AUTOLOAD+=$(call AutoLoad,30,soundcore hostaudio)
+  AUTOLOAD:=$(call AutoLoad,30,soundcore hostaudio)
 endef
 
 define KernelPackage/sound-core/description

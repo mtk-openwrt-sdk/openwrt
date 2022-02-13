@@ -123,8 +123,8 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "i2c", "uartf", "wled", "nd_sd";
-			ralink,function = "gpio";
+			mtk,group = "i2c", "uartf", "wled", "nd_sd";
+			mtk,function = "gpio";
 		};
 	};
 };

@@ -31,27 +31,27 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "refclk", "gpio";
-			ralink,function = "gpio";
+			mtk,group = "refclk", "gpio";
+			mtk,function = "gpio";
 		};
 
 		agpio {
-			ralink,group = "agpio";
-			ralink,function = "uart2";
+			mtk,group = "agpio";
+			mtk,function = "uart2";
 		};
 	};
 
 	uart1_pins: uart1 {
 		uart1 {
-			ralink,group = "uart1";
-			ralink,function = "uart1";
+			mtk,group = "uart1";
+			mtk,function = "uart1";
 		};
 	};
 
 	uart2_pins: uart2 {
 		uart2 {
-			ralink,group = "spis";
-			ralink,function = "pwm";
+			mtk,group = "spis";
+			mtk,function = "pwm";
 		};
 	};
 };

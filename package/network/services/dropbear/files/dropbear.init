@@ -109,7 +109,9 @@ keygen()
 load_interfaces()
 {
 	config_get interface "$1" Interface
-	interfaces=" ${interface} ${interfaces}"
+	config_get enable "$1" enable 1
+
+	[ "${enable}" = "1" ] && interfaces=" ${interface} ${interfaces}"
 }
 
 start_service()
@@ -132,7 +134,7 @@ service_triggers()
 	config_load "${NAME}"
 	config_foreach load_interfaces dropbear
 
-	[ -n "${interfaces}" ] & {
+	[ -n "${interfaces}" ] && {
 		for n in $interfaces ; do
 			procd_add_interface_trigger "interface.*" $n /etc/init.d/dropbear reload
 		done

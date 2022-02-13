@@ -1,0 +1,22 @@
+--- a/drivers/net/phy/Kconfig
++++ b/drivers/net/phy/Kconfig
+@@ -300,6 +300,12 @@
+ 
+ source "drivers/net/phy/mtk/mt753x/Kconfig"
+ 
++config NET_MEDIATEK_MT7621_GSW
++	tristate "mt7621 Gigabit Switch support(MT7530)"
++	depends on NET_VENDOR_MEDIATEK
++	help
++	  This driver supports mt7530 for mt7621
++
+ endif # PHYLIB
+ 
+ config MICREL_KS8995MA
+--- a/drivers/net/phy/Makefile
++++ b/drivers/net/phy/Makefile
+@@ -49,3 +49,4 @@
+ obj-$(CONFIG_MICROCHIP_PHY)	+= microchip.o
+ obj-$(CONFIG_MDIO_BCM_IPROC)	+= mdio-bcm-iproc.o
+ obj-$(CONFIG_MT753X_GSW)      += mtk/mt753x/
++obj-$(CONFIG_NET_MEDIATEK_MT7621_GSW)      += mtk/gsw/

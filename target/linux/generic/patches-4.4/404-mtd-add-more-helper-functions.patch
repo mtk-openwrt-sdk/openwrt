@@ -36,7 +36,7 @@
  #ifdef CONFIG_MTD_SPLIT_FIRMWARE_NAME
  #define SPLIT_FIRMWARE_NAME	CONFIG_MTD_SPLIT_FIRMWARE_NAME
  #else
-@@ -978,6 +987,24 @@ int mtd_is_partition(const struct mtd_in
+@@ -978,6 +987,32 @@ int mtd_is_partition(const struct mtd_in
  }
  EXPORT_SYMBOL_GPL(mtd_is_partition);
  
@@ -45,7 +45,11 @@
 +	if (!mtd_is_partition(mtd))
 +		return (struct mtd_info *)mtd;
 +
++#ifdef PART
 +	return PART(mtd)->master;
++#else
++	return mtd_to_part(mtd)->master;
++#endif
 +}
 +EXPORT_SYMBOL_GPL(mtdpart_get_master);
 +
@@ -54,7 +58,11 @@
 +	if (!mtd_is_partition(mtd))
 +		return 0;
 +
++#ifdef PART
 +	return PART(mtd)->offset;
++#else
++	return mtd_to_part(mtd)->offset;
++#endif
 +}
 +EXPORT_SYMBOL_GPL(mtdpart_get_offset);
 +

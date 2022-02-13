@@ -132,13 +132,13 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "wled", "i2c", "uartf", "wdt";
-			ralink,function = "gpio";
+			mtk,group = "wled", "i2c", "uartf", "wdt";
+			mtk,function = "gpio";
 		};
 
 		pa {
-			ralink,group = "pa";
-			ralink,function = "pa";
+			mtk,group = "pa";
+			mtk,function = "pa";
 		};
 	};
 };

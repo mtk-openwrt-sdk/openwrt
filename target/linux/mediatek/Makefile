@@ -4,19 +4,23 @@ include $(TOPDIR)/rules.mk
 
 ARCH:=arm
 BOARD:=mediatek
-BOARDNAME:=MediaTek Ralink ARM
+BOARDNAME:=MediaTek ARM SoC
+SUBTARGETS:=mt7622 mt7623 mt7629
 FEATURES:=squashfs nand ubifs
-CPU_TYPE:=cortex-a7
-CPU_SUBTYPE:=neon-vfpv4
 MAINTAINER:=John Crispin <john@phrozen.org>
 
 KERNEL_PATCHVER:=4.4
+KERNEL_REVISION:=1469c800
 
-KERNELNAME:=Image dtbs zImage
+KERNELNAME:=Image dtbs 
+#zImage
 
+
+define Target/Description
+	Build images for Mediatek ARM-basd SoC.
+endef
 include $(INCLUDE_DIR)/target.mk
 DEFAULT_PACKAGES += \
-	kmod-mt76 kmod-leds-gpio kmod-gpio-button-hotplug swconfig \
 	wpad-mini
 
 $(eval $(call BuildTarget))

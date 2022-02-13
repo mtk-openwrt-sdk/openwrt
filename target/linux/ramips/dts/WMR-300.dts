@@ -98,8 +98,8 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		default {
-			ralink,group = "i2c", "ephy";
-			ralink,function = "gpio";
+			mtk,group = "i2c", "ephy";
+			mtk,function = "gpio";
 		};
 	};
 };

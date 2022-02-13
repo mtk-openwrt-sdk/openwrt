@@ -311,92 +311,92 @@
 
 		pcm_i2s_pins: pcm_i2s {
 			pcm_i2s {
-				ralink,group = "uartf";
-				ralink,function = "pcm i2s";
+				mtk,group = "uartf";
+				mtk,function = "pcm i2s";
 			};
 		};
 
 		uartf_gpio_pins: uartf_gpio {
 			uartf_gpio {
-				ralink,group = "uartf";
-				ralink,function = "gpio uartf";
+				mtk,group = "uartf";
+				mtk,function = "gpio uartf";
 			};
 		};
 
 		gpio_i2s_pins: gpio_i2s {
 			gpio_i2s {
-				ralink,group = "uartf";
-				ralink,function = "gpio i2s";
+				mtk,group = "uartf";
+				mtk,function = "gpio i2s";
 			};
 		};
 
 		spi_pins: spi {
 			spi {
-				ralink,group = "spi";
-				ralink,function = "spi";
+				mtk,group = "spi";
+				mtk,function = "spi";
 			};
 		};
 
 		spi_cs1: spi1 {
 			spi1 {
-				ralink,group = "spi_cs1";
-				ralink,function = "spi_cs1";
+				mtk,group = "spi_cs1";
+				mtk,function = "spi_cs1";
 			};
 		};
 
 		i2c_pins: i2c {
 			i2c {
-				ralink,group = "i2c";
-				ralink,function = "i2c";
+				mtk,group = "i2c";
+				mtk,function = "i2c";
 			};
 		};
 
 		uartlite_pins: uartlite {
 			uart {
-				ralink,group = "uartlite";
-				ralink,function = "uartlite";
+				mtk,group = "uartlite";
+				mtk,function = "uartlite";
 			};
 		};
 
 		mdio_pins: mdio {
 			mdio {
-				ralink,group = "mdio";
-				ralink,function = "mdio";
+				mtk,group = "mdio";
+				mtk,function = "mdio";
 			};
 		};
 
 		ephy_pins: ephy {
 			ephy {
-				ralink,group = "ephy";
-				ralink,function = "ephy";
+				mtk,group = "ephy";
+				mtk,function = "ephy";
 			};
 		};
 
 		wled_pins: wled {
 			wled {
-				ralink,group = "wled";
-				ralink,function = "wled";
+				mtk,group = "wled";
+				mtk,function = "wled";
 			};
 		};
 
 		rgmii1_pins: rgmii1 {
 			rgmii1 {
-				ralink,group = "rgmii1";
-				ralink,function = "rgmii1";
+				mtk,group = "rgmii1";
+				mtk,function = "rgmii1";
 			};
 		};
 
 		rgmii2_pins: rgmii2 {
 			rgmii2 {
-				ralink,group = "rgmii2";
-				ralink,function = "rgmii2";
+				mtk,group = "rgmii2";
+				mtk,function = "rgmii2";
 			};
 		};
 
 		pcie_pins: pcie {
 			pcie {
-				ralink,group = "pcie";
-				ralink,function = "pcie rst";
+				mtk,group = "pcie";
+				mtk,function = "pcie rst";
 			};
 		};
 	};

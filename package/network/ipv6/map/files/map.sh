@@ -37,7 +37,14 @@ proto_map_setup() {
 	[ -z "$type" ] && type="map-e"
 	[ -z "$ip4prefixlen" ] && ip4prefixlen=32
 
-	( proto_add_host_dependency "$cfg" "::" "$tunlink" )
+	#( proto_add_host_dependency "$cfg" "::" "$tunlink" )
+	json_init
+	json_add_int action 6
+	json_add_string host "::"
+	[ -n "$tunlink" ] && json_add_string ifname "$tunlink"
+	json_add_string "interface" "$cfg"
+	ubus -S call network.interface notify_proto \'"$(json_dump)"\'
+
 
 	# fixme: handle RA/DHCPv6 address race for LW
 	[ "$type" = lw4o6 ] && sleep 5
@@ -216,6 +223,7 @@ proto_map_init_config() {
 	proto_config_add_string "ip6prefix"
 	proto_config_add_int "ip6prefixlen"
 	proto_config_add_string "peeraddr"
+	proto_config_add_int "ealen"
 	proto_config_add_int "psidlen"
 	proto_config_add_int "psid"
 	proto_config_add_int "offset"

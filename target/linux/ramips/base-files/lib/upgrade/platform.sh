@@ -238,6 +238,9 @@ platform_check_image() {
 		nand_do_platform_check "$board" "$1"
 		return $?;
 		;;
+	mt7621-*)
+		# use metadata check only
+		return 0;
 	esac
 
 	echo "Sysupgrade is not yet supported on $board."

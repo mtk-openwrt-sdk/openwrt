@@ -62,43 +62,43 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "gpio";
-			ralink,function = "gpio";
+			mtk,group = "gpio";
+			mtk,function = "gpio";
 		};
 
 		perst {
-			ralink,group = "perst";
-			ralink,function = "gpio";
+			mtk,group = "perst";
+			mtk,function = "gpio";
 		};
 
 		refclk {
-			ralink,group = "refclk";
-			ralink,function = "gpio";
+			mtk,group = "refclk";
+			mtk,function = "gpio";
 		};
 
 		i2s {
-			ralink,group = "i2s";
-			ralink,function = "gpio";
+			mtk,group = "i2s";
+			mtk,function = "gpio";
 		};
 
 		spis {
-			ralink,group = "spis";
-			ralink,function = "gpio";
+			mtk,group = "spis";
+			mtk,function = "gpio";
 		};
 
 		wled_kn {
-			ralink,group = "wled_kn";
-			ralink,function = "gpio";
+			mtk,group = "wled_kn";
+			mtk,function = "gpio";
 		};
 
 		wled_an {
-			ralink,group = "wled_an";
-			ralink,function = "wled_an";
+			mtk,group = "wled_an";
+			mtk,function = "wled_an";
 		};
 
 		wdt {
-			ralink,group = "wdt";
-			ralink,function = "gpio";
+			mtk,group = "wdt";
+			mtk,function = "gpio";
 		};
 	};
 };

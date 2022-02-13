@@ -104,6 +104,7 @@ omcproxy_add_firewall() {
 
 service_triggers() {
 	procd_add_reload_trigger "omcproxy"
+	config_foreach omcproxy_add_trigger proxy
 }
 
 start_service() {
@@ -120,10 +121,6 @@ start_service() {
 	procd_append_param command $PROXIES
 	procd_set_param respawn
 
-	procd_open_trigger
-	config_foreach omcproxy_add_trigger proxy
-	procd_close_trigger
-
 	procd_open_data
 
 	json_add_array firewall
@@ -136,6 +133,8 @@ start_service() {
 
 	# Increase maximum IPv4 group memberships per socket
 	echo 128 > /proc/sys/net/ipv4/igmp_max_memberships
+
+	switch igmpsnoop on
 }
 
 service_started() {

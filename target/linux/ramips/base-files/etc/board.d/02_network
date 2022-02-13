@@ -83,7 +83,6 @@ ramips_setup_interfaces()
 	mac1200rv2|\
 	miwifi-mini|\
 	miwifi-nano|\
-	mt7621|\
 	mt7628|\
 	mzk-750dhp|\
 	mzk-w300nh2|\
@@ -276,6 +275,14 @@ ramips_setup_interfaces()
 		ucidef_add_switch "switch0" \
 			"1:lan" "2:lan" "0:wan" "6@eth0"
 		;;
+	mt7621-rfb-*)
+		ucidef_set_interfaces_lan_wan "eth0" "eth1"
+		ucidef_add_switch "switch0" \
+			"0:lan" "1:lan" "2:lan" "3:lan" "4:wan" "6@eth0" "5@eth1"
+		;;
+	mt7621-raeth-*)
+		ucidef_set_interfaces_lan_wan "eth0" "eth1"
+		;;
 	*)
 		RT3X5X=`cat /proc/cpuinfo | egrep "(RT3.5|RT5350)"`
 		if [ -n "${RT3X5X}" ]; then
@@ -432,6 +439,18 @@ ramips_setup_macs()
 		local index="$(find_mtd_index "board_data")"
 		wan_mac="$(grep -m1 mac= "/dev/mtd${index}" | cut -d= -f2)"
 		lan_mac=$wan_mac
+		;;
+	mt7621-rfb-nor|\
+	mt7621-raeth-nor|\
+	mt7621-rfb-nand)
+		lan_mac=$(mtd_get_mac_binary factory 57344)
+		wan_mac=$(macaddr_add "$lan_mac" 1)
+		;;
+	mt7621-rfb-ax-nor|\
+	mt7621-rfb-ax-nand|\
+	mt7621-raeth-ax-nor)
+		lan_mac=$(mtd_get_mac_binary Factory 262132)
+		wan_mac=$(mtd_get_mac_binary Factory 262138)
 		;;
 	*)
 		lan_mac=$(cat /sys/class/net/eth0/address)

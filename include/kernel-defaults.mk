@@ -4,13 +4,6 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
-
-ifneq ($(SOURCE_DATE_EPOCH),)
-  ifndef DUMP
-    KBUILD_BUILD_TIMESTAMP:=$(shell perl -e 'print scalar gmtime($(SOURCE_DATE_EPOCH))')
-  endif
-endif
-
 KERNEL_MAKEOPTS := -C $(LINUX_DIR) \
 	HOSTCFLAGS="$(HOST_CFLAGS) -Wall -Wmissing-prototypes -Wstrict-prototypes" \
 	CROSS_COMPILE="$(KERNEL_CROSS)" \
@@ -54,6 +47,7 @@ ifeq ($(strip $(CONFIG_EXTERNAL_KERNEL_TREE)),"")
     define Kernel/Prepare/Default
 	xzcat $(DL_DIR)/$(LINUX_SOURCE) | $(TAR) -C $(KERNEL_BUILD_DIR) $(TAR_OPTIONS)
 	$(Kernel/Patch)
+	$(call mtk-wifi-prepare)
 	$(if $(QUILT),touch $(LINUX_DIR)/.quilt_used)
     endef
   else
@@ -67,7 +61,10 @@ else
 	if [ -d $(LINUX_DIR) ]; then \
 		rmdir $(LINUX_DIR); \
 	fi
-	ln -s $(CONFIG_EXTERNAL_KERNEL_TREE) $(LINUX_DIR)
+	git clone $(CONFIG_EXTERNAL_KERNEL_TREE) $(LINUX_DIR)
+	$(call MtkPropertyDriverPrepare)
+	$(Kernel/Patch)
+	$(if $(QUILT),touch $(LINUX_DIR)/.quilt_used)
   endef
 endif
 

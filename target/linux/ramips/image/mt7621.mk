@@ -2,6 +2,17 @@
 # MT7621 Profiles
 #
 
+# build dtb
+define Build/dtb
+        $(call Image/BuildDTB,$(DEVICE_DTS_DIR)/$(DEVICE_DTS).dts,$(KERNEL_BUILD_DIR)/$(DEVICE_DTS).dtb, -I$(LINUX_DIR)/arch/$(LINUX_KARCH)/boot/dts/include)
+endef
+
+define Device/DefaultFIT
+  DEVICE_DTS_DIR := $(PLATFORM_DIR)/dts
+  KERNEL = dtb | kernel-bin | lzma | fit lzma $$(KERNEL_BUILD_DIR)/$$(DEVICE_DTS).dtb
+  IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata | check-size $$$$(IMAGE_SIZE)
+endef
+
 define Build/ubnt-erx-factory-image
 	if [ -e $(KDIR)/tmp/$(KERNEL_INITRAMFS_IMAGE) -a "$$(stat -c%s $@)" -lt "$(KERNEL_SIZE)" ]; then \
 		echo '21001:6' > $(1).compat; \
@@ -71,13 +82,59 @@ define Device/firewrt
 endef
 TARGET_DEVICES += firewrt
 
-define Device/mt7621
-  DTS := MT7621
-  BLOCKSIZE := 64k
-  IMAGE_SIZE := $(ralink_default_fw_size_4M)
-  DEVICE_TITLE := MediaTek MT7621 EVB
+define Device/mt7621-rfb-nand
+$(Device/DefaultFIT)
+  DEVICE_DTS := mt7621-rfb-nand
+  BLOCKSIZE := 128k
+  IMAGE_SIZE := $(ralink_default_fw_size_16M)
+  DEVICE_TITLE := MediaTek MT7621 RFB (NAND)
 endef
-TARGET_DEVICES += mt7621
+TARGET_DEVICES += mt7621-rfb-nand
+
+define Device/mt7621-rfb-nor
+$(Device/DefaultFIT)
+  DEVICE_DTS := mt7621-rfb-nor
+  BLOCKSIZE := 64k
+  IMAGE_SIZE := $(ralink_default_fw_size_16M)
+  DEVICE_TITLE := MediaTek MT7621 RFB (Serial NOR)
+endef
+TARGET_DEVICES += mt7621-rfb-nor
+
+define Device/mt7621-rfb-ax-nand
+$(Device/DefaultFIT)
+  DEVICE_DTS := mt7621-rfb-ax-nand
+  BLOCKSIZE := 128k
+  IMAGE_SIZE := $(ralink_default_fw_size_16M)
+  DEVICE_TITLE := MediaTek MT7621 RFB (802.11ax, NAND)
+endef
+TARGET_DEVICES += mt7621-rfb-ax-nand
+
+define Device/mt7621-rfb-ax-nor
+$(Device/DefaultFIT)
+  DEVICE_DTS := mt7621-rfb-ax-nor
+  BLOCKSIZE := 64k
+  IMAGE_SIZE := $(ralink_default_fw_size_16M)
+  DEVICE_TITLE := MediaTek MT7621 RFB (802.11ax, Serial NOR)
+endef
+TARGET_DEVICES += mt7621-rfb-ax-nor
+
+define Device/mt7621-raeth-nor
+$(Device/DefaultFIT)
+  DEVICE_DTS := mt7621-raeth-nor
+  BLOCKSIZE := 64k
+  IMAGE_SIZE := $(ralink_default_fw_size_16M)
+  DEVICE_TITLE := MediaTek MT7621 Raeth NOR
+endef
+TARGET_DEVICES += mt7621-raeth-nor
+
+define Device/mt7621-raeth-ax-nor
+$(Device/DefaultFIT)
+  DEVICE_DTS := mt7621-raeth-ax-nor
+  BLOCKSIZE := 64k
+  IMAGE_SIZE := $(ralink_default_fw_size_16M)
+  DEVICE_TITLE := MediaTek MT7621 Raeth NOR (AX)
+endef
+TARGET_DEVICES += mt7621-raeth-ax-nor
 
 define Device/newifi-d1
   DTS := Newifi-D1

@@ -104,13 +104,13 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		ephy {
-			ralink,group = "ephy";
-			ralink,function = "ephy";
+			mtk,group = "ephy";
+			mtk,function = "ephy";
 		};
 
 		default {
-			ralink,group = "i2c", "uartf", "spi refclk", "wled";
-			ralink,function = "gpio";
+			mtk,group = "i2c", "uartf", "spi refclk", "wled";
+			mtk,function = "gpio";
 		};
 	};
 };

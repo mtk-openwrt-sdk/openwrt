@@ -109,12 +109,12 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "spi refclk", "rgmii1";
-			ralink,function = "gpio";
+			mtk,group = "spi refclk", "rgmii1";
+			mtk,function = "gpio";
 		};
 		wdt {
-			ralink,group = "wdt";
-			ralink,function = "wdt refclk";
+			mtk,group = "wdt";
+			mtk,function = "wdt refclk";
 		};
 	};
 };

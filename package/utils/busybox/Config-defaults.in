@@ -564,7 +564,7 @@ config BUSYBOX_DEFAULT_DF
 	default y
 config BUSYBOX_DEFAULT_FEATURE_DF_FANCY
 	bool
-	default n
+	default y
 config BUSYBOX_DEFAULT_DIRNAME
 	bool
 	default y
@@ -684,7 +684,7 @@ config BUSYBOX_DEFAULT_NICE
 	default y
 config BUSYBOX_DEFAULT_NOHUP
 	bool
-	default n
+	default y
 config BUSYBOX_DEFAULT_OD
 	bool
 	default n
@@ -1554,7 +1554,7 @@ config BUSYBOX_DEFAULT_LOSETUP
 	default n
 config BUSYBOX_DEFAULT_LSPCI
 	bool
-	default n
+	default y
 config BUSYBOX_DEFAULT_LSUSB
 	bool
 	default n
@@ -2289,34 +2289,34 @@ config BUSYBOX_DEFAULT_TCPSVD
 	default n
 config BUSYBOX_DEFAULT_TELNET
 	bool
-	default n
+	default y
 config BUSYBOX_DEFAULT_FEATURE_TELNET_TTYPE
 	bool
-	default n
+	default y
 config BUSYBOX_DEFAULT_FEATURE_TELNET_AUTOLOGIN
 	bool
-	default n
+	default y
 config BUSYBOX_DEFAULT_TELNETD
 	bool
-	default n
+	default y
 config BUSYBOX_DEFAULT_FEATURE_TELNETD_STANDALONE
 	bool
-	default n
+	default y
 config BUSYBOX_DEFAULT_FEATURE_TELNETD_INETD_WAIT
 	bool
 	default n
 config BUSYBOX_DEFAULT_TFTP
 	bool
-	default n
+	default y
 config BUSYBOX_DEFAULT_TFTPD
 	bool
 	default n
 config BUSYBOX_DEFAULT_FEATURE_TFTP_GET
 	bool
-	default n
+	default y
 config BUSYBOX_DEFAULT_FEATURE_TFTP_PUT
 	bool
-	default n
+	default y
 config BUSYBOX_DEFAULT_FEATURE_TFTP_BLOCKSIZE
 	bool
 	default n
@@ -2403,7 +2403,7 @@ config BUSYBOX_DEFAULT_UDPSVD
 	default n
 config BUSYBOX_DEFAULT_VCONFIG
 	bool
-	default n
+	default y
 config BUSYBOX_DEFAULT_ZCIP
 	bool
 	default n
@@ -2445,7 +2445,7 @@ config BUSYBOX_DEFAULT_LSOF
 	default n
 config BUSYBOX_DEFAULT_MPSTAT
 	bool
-	default n
+	default y
 config BUSYBOX_DEFAULT_NMETER
 	bool
 	default n

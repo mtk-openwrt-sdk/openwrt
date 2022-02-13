@@ -316,8 +316,23 @@ ramips_board_detect() {
 	*"MT7620a V22SG"*)
 		name="mt7620a_v22sg"
 		;;
-	*"MT7621 evaluation"*)
-		name="mt7621"
+	*"MediaTek MT7621 RFB (SNOR)")
+		name="mt7621-rfb-nor"
+		;;
+	*"MediaTek MT7621 RFB (NAND)")
+		name="mt7621-rfb-nand"
+		;;
+	*"MediaTek MT7621 RFB (802.11ax,SNOR)")
+		name="mt7621-rfb-ax-nor"
+		;;
+	*"MediaTek MT7621 RFB (802.11ax,NAND)")
+		name="mt7621-rfb-ax-nand"
+		;;
+	*"MediaTek MT7621 Raeth (SNOR)")
+		name="mt7621-raeth-nor"
+		;;
+	*"MediaTek MT7621 Raeth (802.11ax,SNOR)")
+		name="mt7621-raeth-ax-nor"
 		;;
 	*"MT7628AN evaluation"*)
 		name="mt7628"

@@ -23,7 +23,15 @@ proto_6rd_setup() {
 		return
 	}
 
-	( proto_add_host_dependency "$cfg" "$peeraddr" "$tunlink" )
+#	( proto_add_host_dependency "$cfg" "$peeraddr" "$tunlink" )
+	json_init
+	json_add_int action 6
+	json_add_string host "$peeraddr"
+	[ -n "$tunlink" ] && json_add_string ifname "$tunlink"
+#       _proto_notify "$interface" -S
+	json_add_string "interface" "$cfg"
+	ubus -S call network.interface notify_proto \'"$(json_dump)"\'
+
 
 	[ -z "$ipaddr" ] && {
 		local wanif="$tunlink"
